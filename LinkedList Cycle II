@@ -1,0 +1,42 @@
+#Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null
+#SC : O(1), TC : O(N), Using Floyd's Cycle Algorithm
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode *slow, *fast;
+        slow=head;
+        fast=head;
+        int loop=0;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+            if(slow==fast)
+            {
+                loop=1;
+                break;
+            }
+        }
+        if (loop==1){
+        if(fast==NULL && fast->next==NULL)
+            return NULL;
+        slow=head;
+        while(slow!=fast)
+        {
+            slow=slow->next;
+            fast=fast->next;
+        }
+        return slow;
+        }
+        else
+            return 0;
+    }
+};
